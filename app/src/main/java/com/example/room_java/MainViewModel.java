@@ -19,10 +19,16 @@ import java.util.List;
 public class MainViewModel extends AndroidViewModel {
     private AppDatabase db;
     private LiveData<List<Todo>> todos;
+    private LiveData<List<Information>> infors;
     private String editTodo;
     private Date date = new Date();
     private Todo todo;
+    private int position;
 
+    public int getPosition() { return position; }
+    public void setPosition(int position) { this.position = position; }
+    public LiveData<List<Information>> getInfors() { return infors; }
+    public void setInfors(LiveData<List<Information>> infors) { this.infors = infors; }
     public Date getDate() { return date; }
     public void setDate(Date date) { this.date = date; }
     public String getEditTodo() { return editTodo; }
@@ -48,10 +54,17 @@ public class MainViewModel extends AndroidViewModel {
 
         todos = getAll_todo();
         // 13. getAll_todo() 호출
+        infors = get_infor(getPosition());
+        Log.d("vm_position :", String.valueOf(getPosition()));
     }
     public LiveData<List<Todo>> getAll_todo(){
         return db.todoDao().getAll_todo();
     }   // 9. UI와 로직 분리를 위해 생성
+
+    public LiveData<List<Information>> get_infor(int id){
+        Log.d("vm_id :", String.valueOf(id));
+        return db.todoDao().get_infor(id);
+    }
 
     public void delete_todoItem(Integer id){
         new Thread(new Runnable() {
@@ -81,7 +94,6 @@ public class MainViewModel extends AndroidViewModel {
         // 8. 비동기처리를 위해 해당 클래스 실행   // 9. MainViewModel로 옮기고 소스변경
     }   // 9. UI와 로직 분리를 위해 생성
 
-
     private static class InsertAsyncTask extends AsyncTask<Todo, Void, Void> {
         private TodoDao todoDao;
         public InsertAsyncTask(TodoDao todoDao) {
@@ -93,4 +105,25 @@ public class MainViewModel extends AndroidViewModel {
             return null;
         }
     }   // 8. 비동기처리 // 9. MainViewModel로 옮김
+
+    public void insert_infor(Information information){
+        Log.d("Information", information.toString());
+        new Async(db.todoDao(), position).execute(information);
+    }
+
+    private static class Async extends AsyncTask<Information, Void, Void>{
+        private TodoDao todoDao;
+        private int position;
+
+        public Async(TodoDao todoDao, int position) {
+            this.todoDao = todoDao;
+            this.position = position;
+        }
+        @Override
+        protected Void doInBackground(Information... information) {
+            todoDao.insert_infor(information[position]);
+            return null;
+        }
+    }
+
 }

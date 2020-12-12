@@ -16,8 +16,8 @@ public interface TodoDao {
     LiveData<List<Todo>> getAll_todo(); // Todo테이블에 여러 튜플을 가질 수 있으니 List
     // 6. Livedata
 
-    @Query("SELECT * FROM Information")
-    LiveData<List<Information>> getAll_infor();
+    @Query("SELECT * FROM Information WHERE sub_id=:id")
+    LiveData<List<Information>> get_infor(int id);
     // 6. Livedata
 
     @Insert

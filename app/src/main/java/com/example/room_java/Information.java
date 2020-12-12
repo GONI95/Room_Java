@@ -40,7 +40,10 @@ public class Information {
 
     @Override
     public String toString() {
-        return "번호 : " + sub_id +
-                "  내용 : " + information + "\'\'";
+        final StringBuffer sb = new StringBuffer("Information{");
+        sb.append("id=").append(sub_id);
+        sb.append(", information='").append(information).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 }

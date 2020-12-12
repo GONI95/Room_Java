@@ -3,6 +3,7 @@ package com.example.room_java;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -87,6 +88,13 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
                 return false;
             });
         });
+
+        holder.binding.tvRoomTitle.setOnClickListener( v->{
+            Intent intent = new Intent(context, SubActivity.class);
+            intent.putExtra("position", todos.get(position).getId());
+            context.startActivity(intent);
+        });
+
     }
 
     @Override

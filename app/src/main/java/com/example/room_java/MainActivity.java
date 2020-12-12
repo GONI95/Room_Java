@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         // 10. ViewModel 객체 생성
 
         binding.setViewModel(viewModel);
-        // 12. viewModel이 binding 객체에 설정된 xml로 전달됨
+        // 12. viewModel이 binding 객체에 설정된 xml로 전달됨, xml에 <data> 선언해줘야함
 
         layoutManager = new LinearLayoutManager(this);
         binding.recyclerView.setLayoutManager(layoutManager);
