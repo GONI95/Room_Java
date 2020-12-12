@@ -26,9 +26,9 @@ public interface TodoDao {
     @Insert
     void insert_infor(Information information);
 
-    @Update
-    void update(Todo todo);
+    @Query("UPDATE TODO SET title=:title WHERE id=:id")
+    void update_todoitem(String title, Integer id);
 
-    @Delete
-    void delete(Todo todo);
+    @Query("DELETE FROM TODO WHERE id=:id")
+    void delete_todoitem(Integer id);
 }

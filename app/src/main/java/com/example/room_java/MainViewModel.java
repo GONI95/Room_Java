@@ -53,6 +53,26 @@ public class MainViewModel extends AndroidViewModel {
         return db.todoDao().getAll_todo();
     }   // 9. UI와 로직 분리를 위해 생성
 
+    public void delete_todoItem(Integer id){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                db.todoDao().delete_todoitem(id);
+                Log.d("비동기", "실행 중");
+            }
+        }).start();
+    }
+
+    public void update_todoItem(String title, Integer id){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                db.todoDao().update_todoitem(title, id);
+                Log.d("비동기", "실행 중");
+            }
+        }).start();
+    }
+
     public void insert_todo(){
         todo = new Todo(editTodo, date);
         Log.d("editTodo : ", editTodo);

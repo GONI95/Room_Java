@@ -21,9 +21,7 @@ public class Todo {
     }
 
     // 1. 접근 할 수 있게 설정자, 접근자 생성
-    public int getId() {
-        return id;
-    }
+    public Integer getId() { return id; }
 
     public void setId(int id) {
         this.id = id;
@@ -48,8 +46,11 @@ public class Todo {
     // 1. 원하는 출력을 위해 toString() 재정의
     @Override
     public String toString() {
-        return "번호 : " + id +
-                "  내용 : " + title +
-                "  날짜 : " + date + "\n\n";
+        final StringBuffer sb = new StringBuffer("Todo{");
+        sb.append("id=").append(id);
+        sb.append(", title='").append(title).append('\'');
+        sb.append(", date='").append(date).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 }
